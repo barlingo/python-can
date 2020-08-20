@@ -269,7 +269,19 @@ class BusABC(object):
             msg = self.recv(timeout=1.0)
             if msg is not None:
                 yield msg
-
+    def __next__(self):
+        """ Allow to read the next message in the bus received.
+            
+             >>> msg = next(bus)
+             >>> print(msg)
+        :return
+            :class:'can.Message' msg object.
+        """
+        
+        msg = self.recv(timeout=1.0)
+        if msg is not None:
+            return msg
+        
     @property
     def filters(self):
         """
